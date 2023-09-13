@@ -4,71 +4,75 @@ import showtimes from "../../assets/icons/Two Tickets.png";
 import list from "../../assets/icons/List.png";
 import best_movies from "../../assets/img/best_movies.png";
 import axios from "axios";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { imagePath } from "../homepage/sectionTwo";
 
 const ContentPage = () => {
-  const {id} = useParams();
-  const [movieDetails, setMovieDetails]= useState([]);
-  const [loading, setLoading] =useState(false);
-  const APP_ACCESS_TOKEN =process.env.REACT_APP_ACCESS_TOKEN;
+  const { id } = useParams();
+  const [movieDetails, setMovieDetails] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const APP_ACCESS_TOKEN = process.env.REACT_APP_ACCESS_TOKEN;
 
-   const fetchMovieDetails =()=>{
+  const fetchMovieDetails = () => {
     const options = {
-      method: 'GET',
+      method: "GET",
       url: `https://api.themoviedb.org/3/movie/${id}`,
-      params: {language: 'en-US', page: '1'},
+      params: { language: "en-US", page: "1" },
       headers: {
-        accept: 'application/json',
+        accept: "application/json",
         Authorization: APP_ACCESS_TOKEN,
-      }
+      },
     };
 
-    setLoading(true)
+    setLoading(true);
     axios
-    .request(options)
-    .then(function (response) {
-      setMovieDetails(response.data)
-      console.log(response.data)
-    })
-    .catch(function (error) {
-      toast('An error occured',  {position: toast.POSITION.TOP_RIGHT});
-    })
-    .finally(
-      setLoading(false)
-    )
-    
+      .request(options)
+      .then(function (response) {
+        setMovieDetails(response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        toast("An error occured", { position: toast.POSITION.TOP_RIGHT });
+      })
+      .finally(setLoading(false));
   };
 
-   useEffect(()=>{
-    fetchMovieDetails()
-  },[]);
+  useEffect(() => {
+    fetchMovieDetails();
+  }, []);
 
   return (
     <div className="px-[5%] mt-[38px] w-full">
       <ToastContainer />
       <div className="relative">
-        <img className="w-full h-[600px] hover:p-2 hover:opacity-80 cursor-pointer" src={`${imagePath}${movieDetails.poster_path}`} alt="" />
+        <img
+          className="w-full h-[600px] hover:p-2 hover:opacity-80 cursor-pointer"
+          src={`${imagePath}${movieDetails.poster_path}`}
+          alt=""
+        />
       </div>
 
       <div className="flex flex-col sm:flex-row gap-2 sm:gap-0 sm:justify-between mt-[32px] sm:items-center">
-        <div className="flex gap-[17px] items-center text-[10px] sm:text-[12px] md:text-[16px]">
-          <div className="flex gap-2">
-            <p data-testid='movie-title'>{movieDetails.original_title}</p> • 
-            <p data-testid='movie-release-date'>{movieDetails.release_date}</p> •
-            <p data-testid='movie-runtime'>PG-13 • {movieDetails.runtime}</p>
+        <div className="flex gap-[17px] items-center text-[10px] sm:text-[12px] md:text-[14px]">
+          <div className="flex gap-2 items-center">
+            <p data-testid="movie-title">{movieDetails.original_title}</p> •
+            <p data-testid="movie-release-date">{movieDetails.release_date}</p>{" "}
+            •<p data-testid="movie-runtime">PG-13 • {movieDetails.runtime}</p>
           </div>
-           
+
           <div className="flex items-center">
-            <img className="h-[13px] md:h-[18px] w-[13px] md:w-[18px]" src={star} />
+            <img
+              className="h-[13px] md:h-[18px] w-[13px] md:w-[18px]"
+              src={star}
+            />
             <p className="mt-1 flex gap-1">
               <span className="text-[#E8E8E8]">8.5</span> | 350k
             </p>
           </div>
         </div>
 
-        <div className="flex gap-[5px] sm:gap-[11px] text-[10px] sm:text-[12px] md:text-[16px]">
+        <div className="flex gap-[5px] sm:gap-[11px] text-[10px] sm:text-[12px] md:text-[14px]">
           <div className="text-[#B91C1C] border flex justify-center items-center py-[3px] px-[17px] border-[#F8E7EB] rounded-[15px]">
             <p>Action</p>
           </div>
@@ -80,7 +84,10 @@ const ContentPage = () => {
 
       <div className="flex flex-col sm:flex-row w-full gap-4 mt-[25px]">
         <div>
-          <p data-testid='movie-overview' className="text-[16px] md:text-[18px] lg:text-[20px] text-[#333333]">
+          <p
+            data-testid="movie-overview"
+            className="text-[16px] md:text-[18px] lg:text-[20px] text-[#333333]"
+          >
             {movieDetails.overview}
           </p>
         </div>
@@ -99,7 +106,7 @@ const ContentPage = () => {
       </div>
 
       <div className="flex w-full justify-between gap-4 mt-[25px] mb-[41px] lg:mb-0">
-        <div className="w-full text-[#333333] text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] flex flex-col gap-[20px] md:gap-[31px]">
+        <div className="w-full text-[#333333] text-[14px] md:mb-10 sm:text-[16px] md:text-[18px] lg:text-[20px] flex flex-col gap-[20px] md:gap-[31px]">
           <p>
             Director: <span className="text-[#BE123C]">Joseph Kosinski</span>
           </p>
@@ -118,12 +125,14 @@ const ContentPage = () => {
             </span>
           </p>
 
-          <div className="hidden md:flex font-semibold  border border-[#C7C7C7] h-[55px] rounded-[10px]">
+          <div className="hidden md:flex font-semibold  border border-[#C7C7C7] h-[50px] rounded-[10px]">
             <div className="bg-[#BE123C] text-[12px] sm:text-[14px] md:text-[16px] px-5 rounded-[10px] flex justify-center items-center">
               <p className="text-white">Top rated movie #65</p>
             </div>
             <div className="flex items-center px-5">
-              <p className="text-[12px] sm:text-[14px] md:text-[16px]">Awards 9 nominations</p>
+              <p className="text-[12px] sm:text-[14px] md:text-[16px]">
+                Awards 9 nominations
+              </p>
             </div>
           </div>
         </div>
@@ -134,13 +143,15 @@ const ContentPage = () => {
       </div>
 
       <div className="flex md:hidden font-semibold w-full border border-[#C7C7C7] h-[45px] rounded-[10px] mb-7">
-            <div className="bg-[#BE123C] text-[12px] sm:text-[14px] md:text-[16px] px-5 rounded-[10px] flex justify-center items-center">
-              <p className="text-white">Top rated movie #65</p>
-            </div>
-            <div className="flex items-center px-5">
-              <p className="text-[12px] sm:text-[14px] md:text-[16px]">Awards 9 nominations</p>
-            </div>
-          </div>
+        <div className="bg-[#BE123C] text-[12px] sm:text-[14px] md:text-[16px] px-5 rounded-[10px] flex justify-center items-center">
+          <p className="text-white">Top rated movie #65</p>
+        </div>
+        <div className="flex items-center px-5">
+          <p className="text-[12px] sm:text-[14px] md:text-[16px]">
+            Awards 9 nominations
+          </p>
+        </div>
+      </div>
     </div>
   );
 };

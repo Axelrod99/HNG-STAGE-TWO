@@ -71,7 +71,7 @@ const SideBar = () => {
           <p className="text-[12px] text-[#666666]">
             50k people are playing now
           </p>
-          <button className="text-[12px] h-[30px] w-[112px] mb-[16px] text-[#BE123C] bg-[#be123d69] font-semibold rounded-[30px]">
+          <button className="text-[12px] h-[30px] w-[112px] mb-[16px] text-[#BE123C] bg-[#d94e718c] font-semibold rounded-[30px]">
             Start Playing
           </button>
         </div>
