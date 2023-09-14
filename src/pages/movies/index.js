@@ -6,7 +6,7 @@ const MoviePage = () => {
   return (
     
     <LayOut>
-      <ContentPage/>
+      <ContentPage/> 
     </LayOut>
   )
 }
